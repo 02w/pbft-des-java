@@ -101,7 +101,7 @@ public class DefaultClient<O, R, T> implements Client<O, R, T> {
     }
 
     public boolean checkTimeout(ClientTicket<O, R> ticket) {
-        long now = System.currentTimeMillis();
+        long now = this.currentTime();
         long start = ticket.dispatchTime();
         long elapsed = now - start;
         if (elapsed >= this.timeoutMs) {
@@ -164,5 +164,9 @@ public class DefaultClient<O, R, T> implements Client<O, R, T> {
     @Override
     public ClientTransport<T> transport() {
         return this.transport;
+    }
+
+    protected static long currentTime() {
+        return SimClock.getIntTime();
     }
 }

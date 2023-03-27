@@ -19,7 +19,7 @@ public class DefaultClientTicket<O, R> implements ClientTicket<O, R> {
     public DefaultClientTicket(Client<O, R, ?> client, ClientRequest<O> request) {
         this.client = client;
         this.request = request;
-        this.dispatchTime = new AtomicLong(System.currentTimeMillis());
+        this.dispatchTime = new AtomicLong(this.currentTime());
     }
 
     @Override
@@ -29,7 +29,7 @@ public class DefaultClientTicket<O, R> implements ClientTicket<O, R> {
 
     @Override
     public void updateDispatchTime() {
-        this.dispatchTime.set(System.currentTimeMillis());
+        this.dispatchTime.set(this.currentTime());
     }
 
     @Override
@@ -60,5 +60,9 @@ public class DefaultClientTicket<O, R> implements ClientTicket<O, R> {
     @Override
     public CompletableFuture<R> result() {
         return this.future;
+    }
+
+    protected static long currentTime() {
+        return SimClock.getIntTime();
     }
 }

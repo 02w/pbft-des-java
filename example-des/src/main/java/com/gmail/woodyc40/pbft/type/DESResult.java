@@ -1,9 +1,9 @@
 package com.gmail.woodyc40.pbft.type;
 
-public class AdditionResult {
+public class DESResult {
     private final int result;
 
-    public AdditionResult(int result) {
+    public DESResult(int result) {
         this.result = result;
     }
 
@@ -14,9 +14,9 @@ public class AdditionResult {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AdditionResult)) return false;
+        if (!(o instanceof DESResult)) return false;
 
-        AdditionResult that = (AdditionResult) o;
+        DESResult that = (DESResult) o;
 
         return this.result == that.result;
     }

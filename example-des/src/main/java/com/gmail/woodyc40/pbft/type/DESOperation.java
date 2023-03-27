@@ -1,10 +1,10 @@
 package com.gmail.woodyc40.pbft.type;
 
-public class AdditionOperation {
+public class DESOperation {
     private final int first;
     private final int second;
 
-    public AdditionOperation(int first, int second) {
+    public DESOperation(int first, int second) {
         this.first = first;
         this.second = second;
     }

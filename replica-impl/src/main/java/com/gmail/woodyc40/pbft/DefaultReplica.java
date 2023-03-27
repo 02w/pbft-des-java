@@ -734,6 +734,10 @@ public abstract class DefaultReplica<O, R, T> implements Replica<O, R, T> {
         return getPrimaryId(this.viewNumber, this.transport.countKnownReplicas());
     }
 
+    protected static long currentTime() {
+        return SimClock.getIntTime();
+    }
+
     private static class LinearBackoff {
         private final long initialTimeout;
 
@@ -748,7 +752,7 @@ public abstract class DefaultReplica<O, R, T> implements Replica<O, R, T> {
 
             this.newViewNumber = curViewNumber + 1;
             this.timeout = this.initialTimeout;
-            this.startTime = System.currentTimeMillis();
+            this.startTime = currentTime();
         }
 
         public void expire() {
@@ -766,7 +770,7 @@ public abstract class DefaultReplica<O, R, T> implements Replica<O, R, T> {
         }
 
         public long elapsed() {
-            return System.currentTimeMillis() - this.startTime;
+            return currentTime() - this.startTime;
         }
 
         public boolean isWaitingForVotes() {
@@ -776,7 +780,7 @@ public abstract class DefaultReplica<O, R, T> implements Replica<O, R, T> {
         public void beginNextTimer() {
             if (this.waitingForVotes) {
                 this.waitingForVotes = false;
-                this.startTime = System.currentTimeMillis();
+                this.startTime = currentTime();
             }
         }
     }
